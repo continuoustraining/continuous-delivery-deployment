@@ -1,0 +1,41 @@
+<project name="continuous-deployment" default="help" basedir=".">
+    <import file="./vendor/continuousphp/aws-sdk-phing/tasks.xml" />
+    <property name="aws.profile" value="" />
+    
+    <target name="help" description="List available targets">
+        <exec executable="${project.basedir}/vendor/bin/phing"
+              passthru="true">
+            <arg value="-l"/>
+        </exec>
+    </target>
+    
+    <target name="setup-aws">
+        <aws-config region="${aws.region}" profile="${aws.profile}" />
+    </target>
+
+    <target name="run-stack">
+        <aws-cf-runstack
+            name="${cf.stackName}"
+            updateOnConflict="true"
+            capabilities="CAPABILITY_IAM"
+            templatePath="./infra/single-server.template">
+            <param name="KeyName" value="${cf.KeyName}" />
+            <param name="env" value="${cf.stackName}" />
+        </aws-cf-runstack>
+    </target>
+    
+    <target name="setup-deployment-group">
+        <aws-deploy-deployment-group
+            name="${cf.stackName}"
+            updateOnConflict="true"
+            deploymentConfigName="CodeDeployDefault.OneAtATime"
+            serviceRole="${deploy.serviceRole}"
+            application="${deploy.applicationName}">
+            <ec2TagFilter key="env" value="${cf.stackName}" />
+        </aws-deploy-deployment-group>
+    </target>
+    
+    <target name="provision-stack"
+            description="Provision a stack on AWS"
+            depends="setup-aws, run-stack, setup-deployment-group" />
+</project>
