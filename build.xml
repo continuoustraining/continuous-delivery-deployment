@@ -74,6 +74,7 @@
     <target name="link-docroot" description="Link site document root to Apache document root">
         <symlink link="${server.docroot}" target="${project.basedir}/public" overwrite="true" />
     </target>
+
     
     <target name="provision-stack"
             description="Provision a stack on AWS"
