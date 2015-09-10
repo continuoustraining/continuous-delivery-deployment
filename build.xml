@@ -15,6 +15,18 @@
         <aws-config region="${aws.region}" profile="${aws.profile}" />
     </target>
 
+    <target name="composer">
+        <composer command="install" composer="/usr/bin/composer" />
+    </target>
+
+    <target name="phpunit">
+        <mkdir dir="${phpunit.coverage.html}"/>
+        <exec dir="./module/Application/tests"
+              passthru="true"
+              checkreturn="true"
+              command="${phpunit.exec} --coverage-html ${phpunit.coverage.html} --coverage-clover ${phpunit.coverage.clover} ."/>
+    </target>
+
     <target name="run-stack">
         <if>
             <equals arg1="single-server" arg2="${cf.template}" />
