@@ -7,7 +7,7 @@
     <target name="help" description="List available targets">
         <exec executable="${project.basedir}/vendor/bin/phing"
               passthru="true">
-            <arg value="-l"/>
+            <arg value="-l"/>    
         </exec>
     </target>
     
@@ -74,6 +74,7 @@
     <target name="link-docroot" description="Link site document root to Apache document root">
         <symlink link="${server.docroot}" target="${project.basedir}/public" overwrite="true" />
     </target>
+
     
     <target name="provision-stack"
             description="Provision a stack on AWS"
