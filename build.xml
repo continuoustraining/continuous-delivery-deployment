@@ -20,7 +20,7 @@
             <equals arg1="single-server" arg2="${cf.template}" />
             <then>
                 <aws-cf-runstack
-                        name="training-${cf.stackName}"
+                        name="training${cf.stackName}"
                         updateOnConflict="true"
                         capabilities="CAPABILITY_IAM"
                         templatePath="./infra/${cf.template}.template">
@@ -30,7 +30,7 @@
             </then>
             <else>
                 <aws-cf-runstack
-                        name="training-${cf.stackName}"
+                        name="training${cf.stackName}"
                         updateOnConflict="true"
                         capabilities="CAPABILITY_IAM"
                         templatePath="./infra/${cf.template}.template">
