@@ -1,4 +1,6 @@
 <project name="continuous-deployment" default="help" basedir=".">
+    <property file="./build.properties" />
+    
     <import file="./vendor/continuousphp/aws-sdk-phing/tasks.xml" />
     <property name="aws.profile" value="" />
     
@@ -67,6 +69,10 @@
                 </aws-deploy-deployment-group>
             </else>
         </if>
+    </target>
+
+    <target name="link-docroot" description="Link site document root to Apache document root">
+        <symlink link="${server.docroot}" target="${project.basedir}/public" overwrite="true" />
     </target>
     
     <target name="provision-stack"
