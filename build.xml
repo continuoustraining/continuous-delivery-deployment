@@ -7,7 +7,7 @@
     <target name="help" description="List available targets">
         <exec executable="${project.basedir}/vendor/bin/phing"
               passthru="true">
-            <arg value="-l"/>
+            <arg value="-l"/>    
         </exec>
     </target>
     
