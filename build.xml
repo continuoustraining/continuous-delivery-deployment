@@ -60,7 +60,8 @@
                   undooutputfile="/tmp/dbdeploy_undo.sql" />
 
         <!-- execute the SQL -->
-        <exec command="mysql -u${db.user} -h${db.host} -p${db.password} ${db.name} &lt; /tmp/dbdeploy_deploy.sql" />
+        <exec command="mysql -u${db.user} -h${db.host} -p${db.password} ${db.name} &lt; /tmp/dbdeploy_deploy.sql"
+              error=""  />
         <delete file="/tmp/dbdeploy_deploy.sql" />
     </target>
 
